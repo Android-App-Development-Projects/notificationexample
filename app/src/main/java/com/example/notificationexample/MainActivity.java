@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     public static final String CHANNEL_ID = "Channel1";
+    public static final int REQUEST_NOTIFICATION_PERMISSION_CODE = 100;
 
     Button showNotificationButton;
 
@@ -45,10 +46,10 @@ public class MainActivity extends AppCompatActivity {
                 else if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, Manifest.permission.POST_NOTIFICATIONS)){
                     //Show an explaination
                     Toast.makeText(MainActivity.this, "Notification Permission is Required to Show Important Notifications", Toast.LENGTH_SHORT).show();
-                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{ android.Manifest.permission.POST_NOTIFICATIONS}, 100);
+                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{ android.Manifest.permission.POST_NOTIFICATIONS}, REQUEST_NOTIFICATION_PERMISSION_CODE);
                 }
                 else {
-                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{ android.Manifest.permission.POST_NOTIFICATIONS}, 100);
+                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{ android.Manifest.permission.POST_NOTIFICATIONS}, REQUEST_NOTIFICATION_PERMISSION_CODE);
                 }
             }
         });
@@ -60,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode){
-            case 100:
+            case REQUEST_NOTIFICATION_PERMISSION_CODE:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED  ){
                     showNotification();
                 }
